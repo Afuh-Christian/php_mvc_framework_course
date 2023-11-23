@@ -5,8 +5,10 @@ namespace app\core;
 class Router
 {
     public Request $request;
-    public function __construct(Request $request){
+    public Response $response;
+    public function __construct(Request $request , Response $response){
         $this->request = $request;
+        $this->response = $response;
     }
  protected array $routes = [];
  public function get($path , $callback){
@@ -23,6 +25,7 @@ if(is_string($callback)){
 }
 
 if($callback === false) {
+    $this->response->setStatusCode(404);
     return "Not found";
 }
 return call_user_func($callback);
@@ -45,7 +48,6 @@ protected function renderOnlyView($view){
     ob_start();// starts the output caching . 
     include_once Application::$ROOT_DIR."/views/$view.php";
     return ob_get_clean(); // returns the value and clears the buffer . 
-
 }
 }
 ?>
