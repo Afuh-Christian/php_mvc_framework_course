@@ -7,17 +7,17 @@ use app\core\Request;
 
 class SiteController extends Controller
 {
-    public static function home(){
+    public function home(){
 
         $params = [
             "name" => "Catholic boy"
         ];
 
-        return self::render('home' , $params);
+        return $this->render('home' , $params);
     }
 
 
-    public static function handleContact(Request $request){
+    public function handleContact(Request $request){
         
       $body = $request->getBody();
       echo '<pre>'; 
